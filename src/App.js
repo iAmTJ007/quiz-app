@@ -20,6 +20,7 @@ function Login(){
   const Navigate=useNavigate();
   return(
       <>   
+    // i just chaned hisis
           <div className="box-button">
               <button className="btn">Create Quiz</button>
               <button className="btn" onClick={()=>Navigate('./Quiz')}>Join Quiz</button>
