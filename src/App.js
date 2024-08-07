@@ -18,13 +18,28 @@ export default function App() {
 }
 function Login(){
   const Navigate=useNavigate();
-  return(
-      <>   
-          <div className="box-button">
-              <button className="btn">Create Quiz</button>
-              <button className="btn" onClick={()=>Navigate('./Quiz')}>Join Quiz</button>
-          </div>
-          {/* <button onClick={()=>Navigate('./Quiz')}>click to start quiz</button> */}
-      </>
-  )
+  return (
+    <div className="main">
+        <div className="header">
+            <div className="first">
+                <p>Good luck 🥹</p>
+                <img 
+                    src="https://i.pinimg.com/originals/d9/fc/f4/d9fcf4f4995e18ae4fb9c81fe55832dc.gif" 
+                    alt="Good luck gif" 
+                    className="img1" 
+                />
+                <p>Made with love 🥰</p>
+            </div>
+            <div className="box-button">
+                <button className="btn">Create Quiz</button>
+                <button 
+                    className="btn" 
+                    onClick={() => Navigate('/Quiz')} // Updated for React Router
+                >
+                    Join Quiz
+                </button>
+            </div>
+        </div>
+    </div>
+);
 }
