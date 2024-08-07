@@ -1,0 +1,10 @@
+.first{
+    background-color: beige;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+.img1{
+    width: 6vw;
+    height: 6vw;
+}
