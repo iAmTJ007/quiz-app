@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom"
 import '../App.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Quiz(){
     const [currId,setCurrId]=useState(1); //id of question on display
+    const [selectedAnswers,setSelectedAnswers]=useState({}); //json object to store answers in key-valeus
+    const [selectedOption,setSelectedOption]=useState(0); //current option selected
     const Navigate=useNavigate();
+    useEffect(function(){
+      //if option already in answers json then use that otherwise reset selectedOption state to 0
+      setSelectedOption(0);
+    },[currId])
     function onNext(qid){
       if(qid!==quizData.length){
         setCurrId(qid+1);
@@ -14,11 +20,10 @@ export default function Quiz(){
         setCurrId(qid-1);
       }
     }
-
     return(
         <div className="quiz-screen-body">
             <QuestionTitle currId={currId}/>
-            <Options currId={currId}/>
+            <Options currId={currId} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
             <QuestionLinks qid={currId} onNext={onNext} onPrevious={onPrevious}/>   
         </div>
     )
@@ -34,30 +39,29 @@ function QuestionTitle({currId}){
     )
 }
 
-function Options({currId}){
-  const [selectedOption,setSelectedOption]=useState(0);
+function Options({currId,selectedOption,setSelectedOption}){
+  
   const question=quizData.find((question)=>{
       return question.id===currId;
   })
   function changeSelectedOption(optionNumber){
     if(selectedOption!==optionNumber){
       setSelectedOption(optionNumber);
-      console.log(optionNumber);
     }
   }
     return(
       <div className="option-container">
         {question.options.map((option,index)=>{
-           return <Option optionText={option} optionNumber={index+1} changeSelectedOption={changeSelectedOption}/>
+           return <Option optionText={option} optionNumber={index+1} selectedOption={selectedOption} changeSelectedOption={changeSelectedOption}/>
         })}
       </div>
         
     )
 }
 
-function Option({optionText,optionNumber,changeSelectedOption}){
+function Option({optionText,optionNumber,selectedOption,changeSelectedOption}){
   return(
-    <div className={`option-${optionNumber}`} onClick={()=>changeSelectedOption(optionNumber)}>
+    <div className={optionNumber!==selectedOption?`option-${optionNumber}`:`option-selected`} onClick={()=>changeSelectedOption(optionNumber)}>
         <h1>{optionText}</h1>
     </div>
   )
