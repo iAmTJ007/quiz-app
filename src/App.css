@@ -2,6 +2,9 @@
   text-align: center;
   background-color: #41D6DD;
 }
+.quiz-screen-body{
+  text-align: left;
+}
 body{
   margin: 0;
   padding: 0;
@@ -15,7 +18,36 @@ body{
   height: 40vmin;
   pointer-events: none;
 }
-
+.question-text{
+  text-align: center;
+  font-size: 2rem;
+  padding: 2rem;
+  padding-bottom: 6rem;
+}
+.option-container{
+  
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2rem;
+  justify-content: center;
+}
+.option-1{
+  background-color: green;
+}
+.option-2{
+  background-color: red;
+}
+.option-3{
+  background-color: rgb(216, 216, 8);
+}
+.option-4{
+  background-color: brown;
+}
+.link-buttons{
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 2rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

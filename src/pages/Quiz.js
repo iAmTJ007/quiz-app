@@ -2,19 +2,27 @@ import { useNavigate } from "react-router-dom"
 import '../App.css'
 import { useState } from "react";
 export default function Quiz(){
-    const [currId,setCurrId]=useState(1);
-
+    const [currId,setCurrId]=useState(1); //id of question on display
     const Navigate=useNavigate();
+    function onNext(qid){
+      if(qid!==quizData.length){
+        setCurrId(qid+1);
+      }
+    }
+    function onPrevious(qid){
+      if(qid!==1){
+        setCurrId(qid-1);
+      }
+    }
 
     return(
         <div className="quiz-screen-body">
             <QuestionTitle currId={currId}/>
-            <Options/>   
+            <Options currId={currId}/>
+            <QuestionLinks qid={currId} onNext={onNext} onPrevious={onPrevious}/>   
         </div>
     )
 }
-
-  
 function QuestionTitle({currId}){
     const currQuestion=quizData.find((question)=>
         question.id===currId
@@ -26,11 +34,57 @@ function QuestionTitle({currId}){
     )
 }
 
-function Options(){
+function Options({currId}){
+  const [selectedOption,setSelectedOption]=useState(0);
+  const question=quizData.find((question)=>{
+      return question.id===currId;
+  })
+  function changeSelectedOption(optionNumber){
+    if(selectedOption!==optionNumber){
+      setSelectedOption(optionNumber);
+      console.log(optionNumber);
+    }
+  }
     return(
-        <h1>df</h1>
+      <div className="option-container">
+        {question.options.map((option,index)=>{
+           return <Option optionText={option} optionNumber={index+1} changeSelectedOption={changeSelectedOption}/>
+        })}
+      </div>
+        
     )
 }
+
+function Option({optionText,optionNumber,changeSelectedOption}){
+  return(
+    <div className={`option-${optionNumber}`} onClick={()=>changeSelectedOption(optionNumber)}>
+        <h1>{optionText}</h1>
+    </div>
+  )
+}
+
+function QuestionLinks({qid,onNext,onPrevious}){
+  return(
+    <div className="link-buttons">
+      <button className="btn" onClick={()=>onPrevious(qid)}>Previous</button>
+      <button className="btn" onClick={()=>onNext(qid)}>Next</button>
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const quizData = 
       [
         {
